@@ -33,19 +33,23 @@ export default {
     },
     initConfig () {
       const { dom } = this
-      const { width, height } = screen
-
+    //   const { width, height } = window.screen
+      const width = document.documentElement.clientWidth || document.body.clientWidth
+      const height = document.documentElement.clientHeight || document.body.clientHeight 
+      
+      this.allHeight = height
       this.allWidth = width
 
       dom.style.width = `${width}px`
       dom.style.height = `${height}px`
     },
     setAppScale () {
-      const { allWidth, dom } = this
+      const { allWidth, allHeight, dom } = this
 
       const currentWidth = document.body.clientWidth
+      const currentHeight = document.body.clientHeight
 
-      dom.style.transform = `scale(${currentWidth / allWidth})`
+      dom.style.transform = `scale(${currentWidth / allWidth}, ${currentHeight / allHeight})`
     },
     onResize () {
       const { setAppScale } = this
